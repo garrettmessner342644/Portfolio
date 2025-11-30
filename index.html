@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Garrett Messner | Marketing Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow">
+
+  <meta
+    name="description"
+    content="Portfolio of Garrett Messner, a passionate marketing and management student who loves sports, the outdoors, and building creative campaigns."
+  />
+
+  <!-- Fonts: serif for headings, sans for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      /* Color + radius system I'm using across the site */
+      --bg: #e5e7eb;
+      --bg-soft: #f3f4f6;
+      --bg-white: #ffffff;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --muted: #9ca3af;
+      --border-subtle: #d1d5db;
+      --accent-outline: #111827;
+      --gold: #d4b86a;
+      --link: #111827;
+      --section-beige: #ede6dc;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      line-height: 1.6;
+      /* Hide scroll during the intro splash, I turn this back on with JS */
+      overflow: hidden;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Main page wrapper: I start it slightly zoomed + blurred for the intro effect */
+    .page {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #ffffff 0, #f5f1eb 36%, #e5e7eb 72%, #d1d5db 100%);
+      transform: scale(0.96);
+      filter: blur(2px);
+      opacity: 0;
+      transition:
+        transform 0.7s ease,
+        filter 0.7s ease,
+        opacity 0.7s ease;
+    }
+
+    /* Once the intro finishes, I add .site-ready to body so the site zooms in + sharpens */
+    body.site-ready .page {
+      transform: scale(1);
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ---------------------- Intro splash screen ---------------------- */
+    /* Full-screen overlay that shows before the site fades/zooms in */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #020617;
+  color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 1;
+  transform: scale(1); /* starting scale */
+  transition:
+    opacity 2s ease,
+    transform .6s ease; /* animate zoom + fade together */
+}
+
+/* When this gets added with JS, it fades + zooms in towards the viewer */
+.intro-overlay.intro-hide {
+  opacity: 0;
+  transform: scale(1.18);  /* this is the "Netflix-y" zoom */
+  pointer-events: none;
+}
+
+
+    /* Centered logo + text stack */
+    .intro-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* The circular G logo that pops in */
+    .intro-logo-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      border: 1px solid rgba(209, 213, 219, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+      font-size: 1.9rem;
+      background: radial-gradient(circle at top left, #f9fafb, rgba(212, 184, 106, 0.2));
+      box-shadow: 0 22px 50px rgba(15, 23, 42, 0.6);
+      animation: introLogoPop 0.7s ease-out forwards;
+    }
+
+    .intro-text {
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .intro-name {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 0.7rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: introTextSlideUp 0.6s ease-out 0.45s forwards;
+    }
+
+    .intro-role {
+      display: block;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: introTextSlideUp 0.6s ease-out 0.7s forwards;
+    }
+
+    @keyframes introLogoPop {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes introTextSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------------------- Header / Nav ---------------------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(20px);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.97),
+        rgba(243, 244, 246, 0.9),
+        rgba(243, 244, 246, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(209, 213, 219, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0.25rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(156, 163, 175, 0.8);
+      background: radial-gradient(circle at top left, #ffffff, #f1e5cd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.2);
+      color: #111827;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-text-main {
+      font-family: "Playfair Display", serif;
+      font-size: 0.98rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-text-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-size: 0.86rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+      color: var(--ink-soft);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background-color: var(--ink);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    /* Buttons I reuse across the site */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.4rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--accent-outline);
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.86rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.15s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .btn:hover {
+      background: var(--ink);
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.3);
+      border-color: var(--ink);
+    }
+
+    /* ---------------------- Hero section ---------------------- */
+    .hero {
+      padding: 3.7rem 0 3.2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.4rem, 3.3vw, 3rem);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-intro {
+      font-size: 0.96rem;
+      color: var(--ink-soft);
+      max-width: 30rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .hero-intro strong {
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin-bottom: 1.7rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-aside {
+      position: relative;
+      padding: 0.4rem;
+    }
+
+    .hero-card {
+      background: var(--bg-white);
+      border-radius: 26px;
+      padding: 1.3rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo-frame {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(156, 163, 175, 0.95);
+      background: #f9fafb;
+      margin-bottom: 1rem;
+      height: 400px; /* taller so more of my headshot shows */
+    }
+
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* shift horizontally so the person next to me is cropped out */
+      object-position: 15% 45%;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .hero-meta-block {
+      flex: 1;
+    }
+
+    .hero-meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.68rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-meta-value {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+    }
+
+    /* ---------------------- Generic section styles ---------------------- */
+    main section {
+      padding: 3.2rem 0;
+    }
+
+    .section-beige {
+      background: var(--section-beige);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Slightly tighter gap for About + Interests so the title sits closer to the text */
+    #about .section-header,
+    #interests .section-header {
+      margin-bottom: 0.1rem;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 380px;
+    }
+
+    .divider {
+      width: 100%;
+      max-width: 1120px;
+      height: 1px;
+      margin: 0 auto;
+      background: rgba(156, 163, 175, 0.9);
+    }
+
+    /* ---------------------- About section ---------------------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+    }
+
+    .about-text p + p {
+      margin-top: 1.5rem;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 2.5rem;
+    }
+
+    .tag-pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .about-image-wrap {
+      position: relative;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .about-accent {
+      position: absolute;
+      inset: 10% 8%;
+      border-radius: 26px;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      transform: translate(14px, 14px);
+      z-index: 1;
+    }
+
+    .about-photo-frame {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      z-index: 2;
+    }
+
+    .about-photo-frame img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      filter: saturate(0.96) contrast(1.04);
+    }
+
+    /* ---------------------- Experience section ---------------------- */
+    .experience-inner {
+      background: var(--bg-white);
+      border-radius: 24px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(209, 213, 219, 0.95);
+    }
+
+    .experience-item + .experience-item {
+      border-top: 1px solid rgba(209, 213, 219, 0.9);
+      margin-top: 1.1rem;
+      padding-top: 1.1rem;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-role {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .exp-company {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .exp-dates {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .exp-body {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+
+    .exp-body ul {
+      list-style: none;
+      margin-top: 0.4rem;
+      padding-left: 0;
+    }
+
+    .exp-body li {
+      position: relative;
+      padding-left: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-body li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    /* ---------------------- Projects grid ---------------------- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    .project-card {
+      background: var(--bg-white);
+      border-radius: 22px;
+      border: 1px solid rgba(209, 213, 219, 0.95);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.7rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+      border-color: rgba(17, 24, 39, 0.85);
+    }
+
+    .project-top {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .project-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .project-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.02rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .project-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .project-body {
+      font-size: 0.86rem;
+      color: var(--ink-soft);
+    }
+
+    .project-body ul {
+      padding-left: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .project-body li {
+      margin-bottom: 0.2rem;
+    }
+
+    .project-media {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(209, 213, 219, 0.95);
+      margin-top: 0.4rem;
+      height: 190px;
+      cursor: zoom-in; /* hint that you can click to see more */
+    }
+
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.98) contrast(1.05);
+      transition: transform 0.25s ease;
+    }
+
+    .project-card:hover .project-media img {
+      transform: scale(1.03);
+    }
+
+    .project-actions {
+      margin-top: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+
+    /* ---------------------- Interests / lifestyle collage ---------------------- */
+    .interests-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2.4rem;
+      align-items: center;
+    }
+
+    .interests-text p {
+      font-size: 0.93rem;
+      color: var(--ink-soft);
+    }
+
+    .interest-list {
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+
+    .interest-list li {
+      margin-bottom: 0.35rem;
+    }
+
+    .interest-photos {
+      position: relative;
+      min-height: 550px; /* space for the three overlapping photos */
+      margin-top: 5rem;
+    }
+
+    .interest-photo {
+      position: absolute;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(209, 213, 219, 0.95);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      background: #ffffff;
+      cursor: zoom-in; /* also clickable for lightbox */
+    }
+
+    .interest-photo img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      filter: saturate(0.97) contrast(1.05);
+      transition: transform 0.25s ease;
+    }
+
+    .interest-photo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+    }
+
+    .interest-photo:hover img {
+      transform: scale(1.02);
+    }
+
+    .interest-photo.sports {
+      top: 24px;
+      left: 0;
+      width: 82%;
+      height: 230px;
+    }
+
+    .interest-photo.rams {
+      top: 225px;
+      right: 0;
+      width: 82%;
+      height: 230px;
+    }
+
+    .interest-photo.rams img {
+      object-position: 50% 35%; /* lift the crop so my face shows more */
+    }
+
+    .interest-photo.community {
+      top: 450px;
+      left: 9%;
+      width: 82%;
+      height: 230px;
+    }
+
+    /* ---------------------- Future / goals section ---------------------- */
+    .future-card {
+      background: var(--bg-white);
+      border-radius: 24px;
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(209, 213, 219, 0.95);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.94rem;
+      color: var(--ink-soft);
+    }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.1rem;
+      font-size: 0.88rem;
+    }
+
+    .future-item {
+      border-radius: 18px;
+      padding: 0.9rem 0.85rem;
+      background: var(--bg-soft);
+      border: 1px solid rgba(229, 231, 235, 0.95);
+    }
+
+    .future-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .future-title {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: var(--ink);
+    }
+
+    /* ---------------------- Contact section ---------------------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .contact-text p {
+      font-size: 0.94rem;
+      color: var(--ink-soft);
+      max-width: 380px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+
+    .contact-links a:hover {
+      color: var(--ink);
+    }
+
+    .contact-links span.icon {
+      font-size: 1rem;
+    }
+
+    .contact-card {
+      background: var(--bg-white);
+      border-radius: 20px;
+      padding: 1.2rem 1.4rem;
+      border: 1px solid rgba(209, 213, 219, 0.95);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    /* ---------------------- Footer ---------------------- */
+    footer {
+      padding: 1.6rem 0 2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ---------------------- Reveal animation utility ---------------------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Parallax-lite pieces (hero card + collage) */
+    .parallax {
+      will-change: transform;
+      transition: transform 0.2s ease-out;
+    }
+
+    /* ---------------------- Scroll-to-top button ---------------------- */
+    .to-top {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(17, 24, 39, 0.85);
+      background: rgba(17, 24, 39, 0.96);
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      z-index: 80;
+    }
+
+    .to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .to-top:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 55px rgba(15, 23, 42, 0.55);
+    }
+
+/* dark mode version of the scroll-to-top button */
+body.dark-theme .to-top {
+  background: #f9fafb;     /* white button */
+  color: #111827;          /* charcoal arrow */
+  border-color: #e5e7eb;   /* soft light border */
+  box-shadow: 0 18px 40px rgba(255, 255, 255, 0.15);
+}
+
+
+/* ---------------------- DARK / LIGHT THEME SWITCH ---------------------- */
+
+/* light mode defaults already defined in :root */
+/* dark theme overrides */
+body.dark-theme {
+  --bg: #020617;
+  --bg-soft: #020617;
+  --bg-white: #020617;
+  --ink: #f9fafb;
+  --ink-soft: #e5e7eb;
+  --muted: #9ca3af;
+  --border-subtle: #1f2937;
+  --accent-outline: #facc15;
+  --gold: #facc15;
+  --link: #e5e7eb;
+  --section-beige: #020617;
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* theme toggle button bottom-left */
+.theme-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.85);
+  background: rgba(249, 250, 251, 0.98);
+  color: #020617;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.2);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  z-index: 200;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+/* dark mode styling for button */
+body.dark-theme .theme-toggle {
+  background: rgba(17, 24, 39, 0.98);
+  color: #fde68a;
+  border-color: rgba(148, 163, 184, 0.9);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* spin animation when toggled */
+.theme-toggle.animate {
+  animation: themeSpin 0.6s ease-out;
+}
+
+@keyframes themeSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+/* extra dark-mode tweaks so everything stays readable */
+body.dark-theme header {
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.97),
+    rgba(15, 23, 42, 0.9),
+    rgba(15, 23, 42, 0.7),
+    transparent
+  );
+  border-bottom-color: rgba(31, 41, 55, 0.9);
+}
+
+/* make the overall page background darker in dark mode */
+body.dark-theme .page {
+  background:
+    radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
+}
+
+/* cards / blocks that were using hard-coded light backgrounds */
+body.dark-theme .hero-card,
+body.dark-theme .experience-inner,
+body.dark-theme .project-card,
+body.dark-theme .future-card,
+body.dark-theme .contact-card,
+body.dark-theme .about-photo-frame,
+body.dark-theme .interest-photo,
+body.dark-theme .tag-pill {
+  background: #020617;
+  border-color: rgba(55, 65, 81, 0.9);
+}
+
+/* project media + dividers also need darker borders */
+body.dark-theme .project-media {
+  border-color: rgba(55, 65, 81, 0.9);
+}
+
+body.dark-theme .divider {
+  background: rgba(55, 65, 81, 0.9);
+}
+
+/* mobile nav menu: keep it dark too */
+body.dark-theme .nav-links {
+  background: rgba(15, 23, 42, 0.98);
+  border-color: rgba(55, 65, 81, 0.9);
+}
+
+
+    /* ---------------------- Lightbox (for images) ---------------------- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1200;
+      padding: 1.5rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      background: #020617;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 28px 80px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lightbox-img-wrap {
+      flex: 1;
+      background: #020617;
+    }
+
+  /* Lightbox image — show full image with NO cropping */
+.lightbox-img-wrap img {
+  width: 100%;
+  height: auto;         /* this is the important part! */
+  max-height: 80vh;     /* fits inside screen */
+  object-fit: contain;  /* never crop */
+  background: #020617;
+  display: block;
+  margin: 0 auto;
+}
+
+
+    .lightbox-caption {
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: #e5e7eb;
+      border-top: 1px solid rgba(51, 65, 85, 0.8);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.7rem;
+      border: none;
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ---------------------- Responsive tweaks ---------------------- */
+    @media (max-width: 960px) {
+      .hero-grid,
+      .about-grid,
+      .interests-layout,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-aside {
+        order: -1;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .future-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .interest-photos {
+        min-height: 440px;
+      }
+
+      .interest-photo.sports,
+      .interest-photo.rams {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        position: absolute;
+        inset: 100% 1.5rem auto 1.5rem;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 16px;
+        border: 1px solid rgba(209, 213, 219, 0.95);
+        box-shadow: var(--shadow-soft);
+        padding: 0.9rem 1.1rem;
+        flex-direction: column;
+        gap: 0.8rem;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .hero {
+        padding-top: 2.6rem;
+      }
+
+      .projects-grid,
+      .future-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .interest-photo.sports,
+      .interest-photo.rams {
+        width: 100%;
+        left: 0;
+        right: 0;
+      }
+
+      .lightbox-inner {
+        border-radius: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Intro overlay: quick splash with my G logo and title -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-inner">
+      <div class="intro-logo-circle">G</div>
+      <div class="intro-text">
+        <span class="intro-name">Garrett Messner</span>
+        <span class="intro-role">Marketing &amp; Management Student</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+    <!-- Header / navigation -->
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <div class="brand">
+            <div class="brand-mark">G</div>
+            <div class="brand-text">
+              <span class="brand-text-main">Garrett Messner</span>
+              <span class="brand-text-sub">Marketing &amp; Management Student</span>
+            </div>
+          </div>
+
+          <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+
+          <div class="nav-links" id="navLinks">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#interests">Interests</a>
+            <a href="#future">Future</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero section: my intro + headline -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="reveal">
+                        <h1 class="hero-title">Garrett Messner</h1>
+            <div class="hero-tagline">
+              Thoughtful • Curious • Passionate
+            </div>
+            <p class="hero-intro">
+              I’m a <strong>passionate</strong> marketing and management student who loves
+              building campaigns inspired by real life — the energy of sports, the calm
+              of the outdoors, and the way people actually make decisions. I care about
+              work that feels intentional, looks good, and has a message.
+            </p>
+
+            <div class="hero-actions">
+              <a href="messnergarrettresume.pdf" target="_blank" class="btn">
+                View Resume
+              </a>
+            </div>
+
+            <p class="hero-note">
+              Currently studying Marketing &amp; Management at San Diego State University,
+              building a foundation in strategy, communication, and creative execution.
+            </p>
+          </div>
+
+          <aside class="hero-aside reveal parallax">
+            <div class="hero-card">
+              <div class="hero-photo-frame">
+                <!-- Headshot (cropped via CSS so the person next to me isn’t visible) -->
+                <img src="headshot.jpg" alt="Portrait of Garrett Messner" />
+              </div>
+              <div class="hero-meta">
+                <div class="hero-meta-block">
+                  <div class="hero-meta-label">Focus</div>
+                  <div class="hero-meta-value">Creative Marketing &amp; Strategy</div>
+                </div>
+                <div class="hero-meta-block">
+                  <div class="hero-meta-label">Interests</div>
+                  <div class="hero-meta-value">Sports, Outdoors, Investing</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- About section -->
+      <section id="about" class="section-beige">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">About Me</h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-text reveal">
+              <p>
+                I’m Garrett, a Marketing student with a Management minor at San Diego
+                State University. I like to think carefully about how people move,
+                decide, and connect — then turn those insights into campaigns and
+                experiences that feel natural, not forced.
+              </p>
+              <p>
+                Outside the classroom, I spend a lot of time on the move: whether that's on the field,
+                on the trail, or just following sports and markets. Those things keep me
+                curious — they teach me about teamwork, risk, patience, performance,
+                and how small decisions add up over time.
+              </p>
+              <p>
+                I’ve worked on marketing recommendation reports, a full MAP campaign,
+                and an engineering capstone project, which means I’m just as comfortable
+                thinking creatively as I am breaking down structure, process, and
+                research.
+              </p>
+
+              <div class="about-tags">
+                <span class="tag-pill">Marketing &amp; Management at SDSU</span>
+                <span class="tag-pill">Dean’s List &amp; Intramural Sports</span>
+                <span class="tag-pill">American Marketing Association</span>
+                <span class="tag-pill">Sports Business Initiative</span>
+              </div>
+            </div>
+
+            <div class="about-image-wrap reveal parallax">
+              <div class="about-accent"></div>
+              <div class="about-photo-frame">
+                <!-- Hiking / outdoors photo for the about section -->
+                <img
+                  src="garretttorreypines.jpg"
+                  alt="Garrett hiking overlooking the coast"
+                  data-lightbox="true"
+                  data-caption="Outdoors at Torrey Pines – I like taking marketing ideas from real-life moments."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Experience section -->
+      <section id="experience">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">Experience</h2>
+          </div>
+
+          <div class="experience-inner reveal">
+            <!-- Tecolote experience -->
+            <div class="experience-item">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-role">Intern</div>
+                  <div class="exp-company">Tecolote Research, Inc. · Goleta, CA</div>
+                </div>
+                <div class="exp-dates">Jun 2024 – Present</div>
+              </div>
+              <div class="exp-body">
+                <ul>
+                  <li>
+                    Developed engaging microlearning content to support mandated DOD cybersecurity and
+professional training requirements for 800+ employees nationally.
+                  </li>
+                  <li>
+                    Applied creativity and attention to detail to make complex information easy to understand.
+                  </li>
+                  <li>
+                    Demonstrated adaptability and self-direction while working on various projects.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- In-N-Out experience -->
+            <div class="experience-item">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-role">Associate Level 3</div>
+                  <div class="exp-company">In-N-Out Burger · Goleta, CA</div>
+                </div>
+                <div class="exp-dates">Jun 2022 – Jan 2024</div>
+              </div>
+              <div class="exp-body">
+                <ul>
+                  <li>
+                    Delivered fast, friendly service in a high-volume environment.
+                  </li>
+                  <li>
+                   Promoted teamwork and communication to ensure efficient and accurate order fulfillment.
+
+                  </li>
+                  <li>
+                    Developed strong customer service and multitasking skills.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Skills section -->
+      <section id="skills" class="section-beige">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">Skills</h2>
+            <p class="section-subtitle">
+              A mix of creative, analytical, and people-focused skills built through work,
+              classes, and projects.
+            </p>
+          </div>
+
+          <div class="experience-inner reveal">
+            <div class="exp-body">
+              <ul>
+                <li><strong>Marketing &amp; Strategy:</strong> campaign planning, customer journeys, personas, positioning.</li>
+                <li><strong>Content &amp; Communication:</strong> slide decks, reports, presentations, professional email and written communication.</li>
+                <li><strong>Tools:</strong> Microsoft Office (Word, PowerPoint, Excel-Level 4 Certified), Google Workspace, basic Canva &amp; design tools.</li>
+                <li><strong>Teamwork &amp; Leadership:</strong> group projects, cross-functional collaboration at Tecolote, high-volume teamwork at In-N-Out.</li>
+                <li><strong>Analytical Thinking:</strong> research, breaking down problems, organizing information into clear recommendations.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Projects section -->
+      <section id="projects" class="section-beige">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">Selected Projects</h2>
+          </div>
+
+          <div class="projects-grid">
+            <!-- MAP Campaign project -->
+            <article class="project-card reveal">
+              <div class="project-top">
+                <div class="project-label">Marketing Campaign · Personas</div>
+                <h3 class="project-title">Malibu &amp; Dole MAP Campaign</h3>
+                <div class="project-meta">Group marketing project · SDSU</div>
+                <div class="project-media">
+                  <img
+                    src="map-campaign-thumb.png"
+                    alt="Malibu &amp; Dole MAP Campaign slide thumbnail"
+                    data-lightbox="true"
+                    data-caption="Malibu &amp; Dole MAP Campaign – personas, journeys, and automated email flows."
+                  />
+                </div>
+                <div class="project-body">
+                  <ul>
+                    <li>Developed buyer personas and mapped full customer journeys.</li>
+                    <li>Planned automated email flows and timed touchpoints.</li>
+                    <li>Designed social ads and messaging for each persona.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="project-actions">
+                <span>Slide deck (Link)</span>
+                <a href="https://www.canva.com/design/DAG2pSWppig/qnpK6EGZGDRSlOhigM3zlg/view?utm_content=DAG2pSWppig&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h211292c1df" target="_blank" class="btn">
+                  View full campaign
+                </a>
+              </div>
+            </article>
+
+            <!-- Recommendation report project -->
+            <article class="project-card reveal">
+              <div class="project-top">
+                <div class="project-label">Marketing Recommendation Report</div>
+                <h3 class="project-title">The Compound Lifting Gym</h3>
+                <div class="project-meta">Business Communications · SDSU</div>
+                <div class="project-media">
+                  <img
+                    src="compound-report-thumb.png"
+                    alt="Compound Lifting Gym marketing recommendation report thumbnail"
+                    data-lightbox="true"
+                    data-caption="The Compound Lifting Gym – recommendation report focused on awareness and revenue."
+                  />
+                </div>
+                <div class="project-body">
+                  <ul>
+                    <li>Analyzed awareness and revenue challenges for a local gym.</li>
+                    <li>Proposed a three-part plan: social, discounts, promotion.</li>
+                    <li>Backed recommendations with research and real examples.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="project-actions">
+                <span>Report (PDF)</span>
+                <a href="compound-marketing-report.pdf" target="_blank" class="btn">
+                  View full report
+                </a>
+              </div>
+            </article>
+
+           <!-- SDSU Aztec Pool Party game experience -->
+<article class="project-card reveal">
+  <div class="project-top">
+    <div class="project-label">SDSU Athletics Marketing</div>
+    <h3 class="project-title">Aztec Pool Party Event</h3>
+    <div class="project-meta">SDSU Water Polo</div>
+
+    <div class="project-media">
+      <img
+        src="aztecpoolparty.png"
+        alt="Aztec Pool Party water polo event graphic"
+        data-lightbox="true"
+        data-caption="Aztec Pool Party – themed water polo game with giveaways, fan activations, and video board elements."
+      />
+    </div>
+
+    <div class="project-body">
+      <ul>
+        <li>Created a full “Aztec Pool Party” game theme for SDSU water polo.</li>
+        <li>Planned giveaways like SDSU board shorts and straw hats to match the summer vibe.</li>
+        <li>Outlined fan activations, PA script lines, and video board elements to hype the crowd.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="project-actions">
+    <span>Concept deck (PDF)</span>
+    <a href="TheAztecPoolParty.pdf" target="_blank" class="btn">
+      View full campaign
+    </a>
+  </div>
+</article>
+
+
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Interests / lifestyle section -->
+      <section id="interests">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">Interests &amp; Lifestyle</h2>
+          </div>
+
+          <div class="interests-layout"> <div class="interests-text reveal"> 
+
+<p>
+  Outside of school, I like keeping life pretty simple: good people, sports,
+  and staying active. I’m a big LA Rams fan, and I’ll take any excuse to watch
+  a game, talk football, or make predictions that may or may not end up being 
+  right. I’m also pretty involved in intramural sports at SDSU, which gives me
+  a fun outlet to compete, stay moving, and meet new people.
+</p>
+
+<p style="margin-top:1rem;">
+  I’m also part of YoungLife on campus, which has given me a solid community 
+  and a group of friends I’m around every week. On the quieter side, I like
+  keeping up with the market and researching different investing trends—not
+  because I have to, but because it’s genuinely interesting to see how things
+  move and why. All of these things keep me connected, curious, and grounded
+  in a way that makes day-to-day life a lot more fun.
+</p>
+
+
+
+</div>
+
+            <div class="interest-photos reveal parallax">
+              <div class="interest-photo sports">
+                <img
+                  src="golfwbros.jpg"
+                  alt="Golfing with friends"
+                  data-lightbox="true"
+                  data-caption="Golfing with friends"
+                />
+              </div>
+              <div class="interest-photo rams">
+                <img
+                  src="garrettheisman.jpg"
+                  alt="Rams display and Heisman pose"
+                  data-lightbox="true"
+                  data-caption="My best Heisman pose"
+                />
+              </div>
+              <div class="interest-photo community">
+                <img
+                  src="younglife.jpg"
+                  alt="Night event with friends"
+                  data-lightbox="true"
+                  data-caption="YoungLife"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Future / goals section -->
+      <section id="future" class="section-beige">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">Looking Ahead</h2>
+            <p class="section-subtitle">
+              A career path that blends creative marketing, real-world inspiration, and
+              work that actually feels exciting.
+            </p>
+          </div>
+
+          <div class="future-card reveal">
+            <p>
+              Long term, I see myself working as a creative marketer or strategist on
+              campaigns that feel energetic, intentional, and connected to real people — 
+              whether that’s in sports, outdoor brands, lifestyle, or something entirely
+              new. I like the idea of combining strategy, storytelling, and lived
+              experience into work that hits both logically and emotionally.
+            </p>
+
+            <div class="future-grid">
+              <div class="future-item">
+                <div class="future-label">Goals</div>
+                <div class="future-title">Build meaningful campaigns</div>
+                <p>
+                  Work on projects and campaigns that people talk
+                  about, share, and remember.
+                </p>
+              </div>
+              <div class="future-item">
+                <div class="future-label">Skills to grow</div>
+                <div class="future-title">Creative &amp; analytical balance</div>
+                <p>
+                  Keep sharpening my skills in audience research, content, branding, and
+                  data-informed strategy.
+                </p>
+              </div>
+              <div class="future-item">
+                <div class="future-label">How I show up</div>
+                <div class="future-title">Prepared, curious, team-first</div>
+                <p>
+                  Bring reliability, good questions, and a steady presence to whatever
+                  team I’m on — and keep learning from the people around me.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- Contact section -->
+      <section id="contact">
+        <div class="container">
+          <div class="section-header reveal">
+            <h2 class="section-title">Contact</h2>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-text reveal">
+              <p>
+                I’m open to internships, project-based work, and conversations that help me
+                grow as a marketer and teammate. The best way to reach me is by email or
+                LinkedIn.
+              </p>
+
+              <div class="contact-links" style="margin-top: 1.3rem;">
+                <a href="mailto:garrettcmessner@gmail.com">
+                  <span class="icon">✉️</span>
+                  <span>garrettcmessner@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/garrett-messner-6699a7249/" target="_blank">
+                  <span class="icon">↗</span>
+                  <span>LinkedIn · /garrett-messner-6699a7249</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="contact-card reveal">
+              <p>
+                This site is a snapshot of where I’m at right now — a mix of academic work,
+                hands-on projects, and the things that keep me moving. I’m always open to
+                feedback and new opportunities to learn.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-inner">
+          <span>© <span id="year"></span> Garrett Messner</span>
+                  </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scroll-to-top button (only shows after scrolling down) -->
+  <button class="to-top" id="toTopBtn" aria-label="Back to top">↑</button>
+
+<!-- theme toggle (light / dark) -->
+<button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+  🌙
+</button>
+
+
+  <!-- Lightbox: I use this to show bigger versions of images when clicked -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close image">×</button>
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImage" alt="" />
+      </div>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle for small screens
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        navLinks.classList.remove("open");
+      }
+    });
+
+    // Reveal on scroll (fade + slide up)
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+      }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+
+    // Simple parallax effect on a few elements
+    const parallaxEls = document.querySelectorAll(".parallax");
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      parallaxEls.forEach((el) => {
+        const speed = 0.06;
+        el.style.transform = `translateY(${scrollY * speed * -1}px)`;
+      });
+    });
+
+    // Intro splash: play the logo/name animation, then fade it out and zoom the site in
+    window.addEventListener("load", () => {
+      const overlay = document.getElementById("introOverlay");
+
+      // Give the logo + text a moment to animate before removing the overlay
+      setTimeout(() => {
+        document.body.classList.add("site-ready");
+        document.body.style.overflow = "auto";
+
+        if (overlay) {
+          overlay.classList.add("intro-hide");
+          // After the fade-out, completely remove it so it's not sitting on top
+          setTimeout(() => {
+            overlay.style.display = "none";
+          }, 700);
+        }
+      }, 2200); // total intro time before the site appears
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll-to-top button logic
+    const toTopBtn = document.getElementById("toTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        toTopBtn.classList.add("visible");
+      } else {
+        toTopBtn.classList.remove("visible");
+      }
+    });
+
+    toTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+
+// ==================== DARK / LIGHT MODE ====================
+
+const themeToggleBtn = document.getElementById("themeToggle");
+
+// Apply theme to body + update icon + store preference
+function applyTheme(theme) {
+  if (theme === "dark") {
+    document.body.classList.add("dark-theme");
+    themeToggleBtn.textContent = "☀️";   // sun icon for switching back
+    themeToggleBtn.title = "Switch to light mode";
+  } else {
+    document.body.classList.remove("dark-theme");
+    themeToggleBtn.textContent = "🌙";   // moon icon for dark mode
+    themeToggleBtn.title = "Switch to dark mode";
+  }
+  localStorage.setItem("gm-theme", theme);
+}
+
+// Load saved theme or system default
+(function initTheme() {
+  const saved = localStorage.getItem("gm-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const startTheme = saved || (prefersDark ? "dark" : "light");
+  applyTheme(startTheme);
+})();
+
+// When the button is clicked, toggle the theme
+themeToggleBtn.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("dark-theme");
+  applyTheme(isDark ? "dark" : "light");
+
+  // fun spin animation
+  themeToggleBtn.classList.add("animate");
+  setTimeout(() => themeToggleBtn.classList.remove("animate"), 600);
+});
+
+
+    // Lightbox logic: I attach this to any image with data-lightbox="true"
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const lightboxCaption = document.getElementById("lightboxCaption");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    function openLightbox(src, captionText) {
+      lightboxImage.src = src;
+      lightboxCaption.textContent = captionText || "";
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightboxImage.src = "";
+      document.body.style.overflow = "auto";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (e) => {
+      // Close when clicking on the dark backdrop area
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
+      }
+    });
+
+    const lightboxTargets = document.querySelectorAll("[data-lightbox='true']");
+
+    lightboxTargets.forEach((img) => {
+      img.addEventListener("click", () => {
+        const src = img.getAttribute("src");
+        const caption =
+          img.getAttribute("data-caption") || img.getAttribute("alt") || "";
+        openLightbox(src, caption);
+      });
+    });
+  </script>
+</body>
+</html>
