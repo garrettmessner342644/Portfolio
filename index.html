@@ -337,6 +337,14 @@
       border-color: var(--ink);
     }
 
+    /* Fix button hover colors in dark mode */
+body.dark-theme .btn:hover {
+  background: #0f172a;      /* deep navy / charcoal */
+  color: #f9fafb;           /* light text */
+  border-color: #0f172a;
+}
+
+
     /* ---------------------- Hero section ---------------------- */
     .hero {
       padding: 3.7rem 0 3.2rem;
@@ -1929,3 +1937,4 @@ themeToggleBtn.addEventListener("click", () => {
   </script>
 </body>
 </html>
+
